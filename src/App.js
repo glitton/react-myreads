@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
        */
         showSearchPage: false,
         books: [],
-        shelves = [
+        shelves: [
           {
             name: 'currentlyReading',
             shelfName: 'Currently Reading'
@@ -34,16 +34,17 @@ class BooksApp extends React.Component {
     }
   }
 
-  // Use the getApp method to get all the books on load
+  // Use the getAll method to get all the books on load
+
   // componentDidMount() {
-  //
-  // }
-  //
-  // renderBooks() {
-  //   BooksAPI.getAll().then(books => {
-  //     this.setstate({ books });
+  //   BooksAPI.getAll().then((books) => {
+  //       this.setState({ books })
   //   })
   // }
+
+  BooksAPI.getAll().then((books) => {
+    this.setState({ books })
+  })
 
   render() {
     return (
@@ -74,7 +75,17 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-              <BookShelf />
+            <div className="list-books-content">
+              {
+                  this.state.shelves.map(shelf => (
+                  <BookShelf
+                    key={shelf.name}
+                    shelf={shelf}
+                    books={this.state.books.filter(book => book.shelf === shelf.name)}
+                  />
+                ))
+              }
+            </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
@@ -85,4 +96,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;

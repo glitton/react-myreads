@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css'
+import Book from './Book';
 
 class BookShelf extends React.Component {
   constructor(props) {
@@ -8,14 +9,13 @@ class BookShelf extends React.Component {
 
   render() [
     return (
-      <div className="list-books-content">
+
         <div>
           <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
+            <h2 className="bookshelf-title">{this.props.shelf.shelfName}</h2>
             <Book />
           </div>
         </div>
-      </div>
 
     )
   ]
