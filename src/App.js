@@ -18,35 +18,34 @@ class BooksApp extends React.Component {
         books: [],
         shelves: [
           {
+            id: 1,
             name: 'currentlyReading',
             shelfName: 'Currently Reading'
           },
           {
+            id: 2,
             name: 'wantToRead',
             shelfName: 'Want To Read'
           },
           {
+            id: 3,
             name: 'read',
             shelfName: 'Read'
           }
         ],
       }
     }
+
+
+  // Use the BooksAPI getAll method to get all the books on load
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+        this.setState({ books })
+    });
   }
 
-  // Use the getAll method to get all the books on load
-
-  // componentDidMount() {
-  //   BooksAPI.getAll().then((books) => {
-  //       this.setState({ books })
-  //   })
-  // }
-
-  BooksAPI.getAll().then((books) => {
-    this.setState({ books })
-  })
-
   render() {
+    // console.log(this.state.books)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -75,16 +74,18 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+
             <div className="list-books-content">
-              {
-                  this.state.shelves.map(shelf => (
-                  <BookShelf
-                    key={shelf.name}
-                    shelf={shelf}
-                    books={this.state.books.filter(book => book.shelf === shelf.name)}
-                  />
-                ))
-              }
+              <div>
+                {/* Map over shelves and render new Bookshelf component */}
+                {this.state.shelves.map(shelf => (
+                    <BookShelf
+                      key={shelf.id}
+                      shelf={shelf}
+                      books={this.state.books.filter(book => book.shelf === shelf.name)}
+                    />
+                  ))}
+              </div>
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
