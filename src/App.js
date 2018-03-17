@@ -70,9 +70,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBar onClick={() => {
-            this.setState({ showSearchPage: true })
-          }}/>
+          <SearchBar />
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -82,14 +80,19 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 {/* Map over shelves and render new Bookshelf component */}
-                {this.state.shelves.map((shelf) => (
-                    <BookShelf
-                      key={shelf.id}
-                      shelf={shelf}
-                      books={this.state.books.filter((book) => book.shelf === shelf.name)}
-                      moveBook={this.moveBook}
-                    />
-                  ))}
+                {
+                  this.state.shelves.map(shelf => {
+                    return (
+                      <BookShelf
+                        key={shelf.id}
+                        shelf={shelf}
+                        books={this.state.books.filter(book => book.shelf === shelf.name)}
+                        moveBook={this.moveBook}
+                      />
+                    )
+                  })
+                }
+              )
               </div>
             </div>
             <div className="open-search">

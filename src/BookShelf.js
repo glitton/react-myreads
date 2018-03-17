@@ -12,14 +12,16 @@ class BookShelf extends React.Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {/* Map over books array */}
-            {this.props.books.map((book) => (
-              <Book
-                book={book}
-                shelf={book.shelf}
-                key={book.id}
-                moveBook={this.props.moveBook}
-              />
-            ))}
+            {this.props.books.map(book => {
+              return (
+                <Book
+                  book={book}
+                  shelf={book.shelf}
+                  key={book.id}
+                  moveBook={this.props.moveBook}
+                />
+              )}
+            )}
           </ol>
         </div>
       </div>
