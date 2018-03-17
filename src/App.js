@@ -64,15 +64,6 @@ class BooksApp extends React.Component {
      });
    };
 
-  // Method to search for a book by title or author
-  searchBook = (query) => {
-    BooksAPI.search(query).then(books => {
-      // set new state for books, its shelf should be none if the books isn't displayed
-      // if book is already on a shelf, it's shelf state should be this.props.book.shelf
-      this.setState({books});
-      console.log('Search book output' + JSON.stringify(books));
-    })
-  }
 
   render() {
     return (
@@ -80,7 +71,7 @@ class BooksApp extends React.Component {
         {this.state.showSearchPage ? (
           <SearchBar
             books={this.state.books}
-            searchBook={this.searchBook}
+            moveBook={this.moveBook}
           />
         ) : (
           <div className="list-books">

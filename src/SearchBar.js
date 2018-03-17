@@ -10,8 +10,14 @@ class SearchBar extends React.Component {
     };
   }
 
-  handleClick(event){
-    this.props.searchBook(event.target.query)
+  // Method to search for a book by title or author
+  searchBook = (query) => {
+    BooksAPI.search(query).then(books => {
+      // set new state for books, its shelf should be none if the books isn't displayed
+      // if book is already on a shelf, it's shelf state should be this.props.book.shelf
+      this.setState({books});
+      console.log('Search book output' + JSON.stringify(books));
+    })
   }
 
   render() {
@@ -32,7 +38,7 @@ class SearchBar extends React.Component {
               type="text"
               placeholder="Search by title or author"
               defaultValue={this.state.query}
-              onClick={this.handleClick}
+
             />
 
           </div>
