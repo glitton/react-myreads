@@ -11,15 +11,11 @@ class SearchBar extends React.Component {
     };
   }
 
-  // Method to search for a book by title or author
-  // searchBook = (query) => {
-  //   BooksAPI.search(query).then(books => {
-  //     // set new state for books, its shelf should be none if the books isn't displayed
-  //     // if book is already on a shelf, it's shelf state should be this.props.book.shelf
-  //     this.setState({books});
-  //     console.log('Search book output' + JSON.stringify(books));
-  //   })
-  // }
+  // Create method to search for a book, add it to a new array
+  // in the array, check if the book is already in the user's collection
+  // if it is, then dropdown needs to reflect the user's current shelf for the book
+  // if it isn't, then dropdown should equal None
+
 
   render() {
     return (
@@ -46,14 +42,6 @@ class SearchBar extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/* {this.props.books.map(book => {
-              return (
-                <Book
-                  book={book}
-                  shelf={book.shelf}
-                  key={book.id}
-                />
-              )} */}
           </ol>
         </div>
       </div>
