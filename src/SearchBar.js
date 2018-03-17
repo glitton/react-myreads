@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+
 // import Book from './Book';
 
 class SearchBar extends React.Component {
@@ -11,20 +12,20 @@ class SearchBar extends React.Component {
   }
 
   // Method to search for a book by title or author
-  searchBook = (query) => {
-    BooksAPI.search(query).then(books => {
-      // set new state for books, its shelf should be none if the books isn't displayed
-      // if book is already on a shelf, it's shelf state should be this.props.book.shelf
-      this.setState({books});
-      console.log('Search book output' + JSON.stringify(books));
-    })
-  }
+  // searchBook = (query) => {
+  //   BooksAPI.search(query).then(books => {
+  //     // set new state for books, its shelf should be none if the books isn't displayed
+  //     // if book is already on a shelf, it's shelf state should be this.props.book.shelf
+  //     this.setState({books});
+  //     console.log('Search book output' + JSON.stringify(books));
+  //   })
+  // }
 
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" href="#search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+          <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
