@@ -36,7 +36,7 @@ class BooksApp extends React.Component {
         ],
       };
 
-      this.newMoveBook = this.newMoveBook.bind(this);
+      this.moveBook = this.moveBook.bind(this);
     }
 
   // Use the BooksAPI getAll method to get all the books on load
@@ -63,7 +63,7 @@ class BooksApp extends React.Component {
   // };
 
   // Method to move book using its id, to another shelf
-   newMoveBook = (chosenBook, newShelf) => {
+   moveBook = (chosenBook, newShelf) => {
      // Update the backend
      BooksAPI.update(chosenBook, newShelf).then(result => {
        this.setState(state => {
@@ -102,7 +102,7 @@ class BooksApp extends React.Component {
                         key={shelf.id}
                         shelf={shelf}
                         books={this.state.books.filter(book => book.shelf === shelf.name)}
-                        moveBook={this.newMoveBook}
+                        moveBook={this.moveBook}
                       />
                     )
                   })
