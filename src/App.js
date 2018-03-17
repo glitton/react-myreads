@@ -73,6 +73,7 @@ class BooksApp extends React.Component {
            book => book.id === chosenBook.id
          );
          //Get the shelf value of user chosen book
+         console.log('This is the book to move' + userBookToMove);
          userBookToMove[0].shelf = newShelf;
          return({books: newState.books});
        });
