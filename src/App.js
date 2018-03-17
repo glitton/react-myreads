@@ -33,8 +33,12 @@ class BooksApp extends React.Component {
             shelfName: 'Read'
           }
         ],
-      }
+      };
+
+      this.moveBook = this.moveBook.bind(this);
     }
+
+
 
 
   // Use the BooksAPI getAll method to get all the books on load
@@ -44,8 +48,24 @@ class BooksApp extends React.Component {
     });
   }
 
+  // Method to move book using its id, to another shelf
+  moveBook = (chosenBook, newShelf) => {
+    this.setState((state) => {
+      // Filter out the book that user chose to move
+      const userBookToMove = state.books.filter(book => book.id !== chosenBook.id);
+      //Get the shelf value of user chosen book
+      userBookToMove.shelf = newShelf
+      return {
+        // Updated state
+        books: newShelf.concat(chosenBook)
+      };
+    });
+    // Update the backend
+    BooksAPI.update(chosenBook, newShelf);
+  };
+
   render() {
-    // console.log(this.state.books)
+    console.log(this.state.books)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -78,11 +98,12 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 {/* Map over shelves and render new Bookshelf component */}
-                {this.state.shelves.map(shelf => (
+                {this.state.shelves.map((shelf) => (
                     <BookShelf
                       key={shelf.id}
                       shelf={shelf}
-                      books={this.state.books.filter(book => book.shelf === shelf.name)}
+                      books={this.state.books.filter((book) => book.shelf === shelf.name)}
+                      moveBook={this.moveBook}
                     />
                   ))}
               </div>
