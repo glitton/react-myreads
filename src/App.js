@@ -37,30 +37,14 @@ class BooksApp extends React.Component {
       };
 
       this.moveBook = this.moveBook.bind(this);
-    }
+    };
 
   // Use the BooksAPI getAll method to get all the books on load
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
         this.setState({ books })
     });
-  }
-
-  // Method to move book using its id, to another shelf
-  // moveBook = (chosenBook, newShelf) => {
-  //   this.setState((state) => {
-  //     // Filter out the book that user chose to move
-  //     const userBookToMove = state.books.filter(book => book.id !== chosenBook.id);
-  //     //Get the shelf value of user chosen book
-  //     userBookToMove.shelf = newShelf
-  //     return {
-  //       // Updated state
-  //       books: newShelf.concat(chosenBook)
-  //     };
-  //   });
-  //   // Update the backend
-  //   BooksAPI.update(chosenBook, newShelf);
-  // };
+  };
 
   // Method to move book using its id, to another shelf
    moveBook = (chosenBook, newShelf) => {
@@ -73,19 +57,31 @@ class BooksApp extends React.Component {
            book => book.id === chosenBook.id
          );
          //Get the shelf value of user chosen book
-         console.log('This is the book to move' + userBookToMove);
+         // console.log('This is the book to move' + JSON.stringify(userBookToMove));
          userBookToMove[0].shelf = newShelf;
          return({books: newState.books});
        });
      });
    };
 
+  // Method to search for a book by title or author
+  searchBook = (query) => {
+    BooksAPI.search(query).then(books => {
+      // set new state for books, its shelf should be none if the books isn't displayed
+      // if book is already on a shelf, it's shelf state should be this.props.book.shelf
+      this.setState({books});
+      console.log('Search book output' + JSON.stringify(books));
+    })
+  }
+
   render() {
-    console.log(this.state.books)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBar />
+          <SearchBar
+            books={this.state.books}
+            searchBook={this.searchBook}
+          />
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -118,6 +114,6 @@ class BooksApp extends React.Component {
       </div>
     )
   }
-}
+};
 
 export default BooksApp;

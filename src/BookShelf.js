@@ -5,7 +5,7 @@ import Book from './Book';
 class BookShelf extends React.Component {
 
   render() {
-    console.log(this.props.books)
+    // console.log(this.props.books)
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelf.shelfName}</h2>
