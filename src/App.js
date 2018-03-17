@@ -75,11 +75,12 @@ class BooksApp extends React.Component {
             moveBook={this.moveBook}
           />
         )}/>
+
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <Route path="/" render={() => (
               <div className="list-books-content">
                 <div>
                   {
@@ -99,14 +100,11 @@ class BooksApp extends React.Component {
               <div className="open-search">
                 <Link to="/search">Add a book</Link>
               </div>
-            )}/>
-          </div>
-        )}
+            </div>
+          )}/>
       </div>
     )
   }
 };
 
 export default BooksApp;
-
-// onClick={() => this.setState({ showSearchPage: true })}
