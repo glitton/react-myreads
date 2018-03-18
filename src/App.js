@@ -49,22 +49,19 @@ class BooksApp extends React.Component {
 
   // Method to move book using its id, to another shelf
    moveBook = (chosenBook, newShelf) => {
-     // Update the backend
      BooksAPI.update(chosenBook, newShelf).then(result => {
-       this.setState(state => {
-         const newState = {...state};
-         // Filter out the book that user chose to move
-         const userBookToMove = newState.books.filter(
-           book => book.id === chosenBook.id
-         );
-         //Get the shelf value of user chosen book
-         // console.log('This is the book to move' + JSON.stringify(userBookToMove));
-         userBookToMove[0].shelf = newShelf;
-         return({books: newState.books});
+       this.setState(previousState => {
+         const newState = previousState; //output is an array
+         // console.log('this is the new state' + JSON.stringify(newState));
+         // filter the newState array and get the id of the book to move
+         const chosenBookToMove = newState.books.filter(book => book.id === chosenBook.id);
+         // console.log('chosen book' + JSON.stringify(chosenBookToMove));
+         //grab the shelf property, this is the new shelf where the book will go
+         chosenBookToMove[0].shelf = newShelf;
+         return ({ books: newState.books })
        });
      });
    };
-
 
   render() {
     return (
