@@ -1,27 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
 import './App.css';
-
-// import Book from './Book';
+import Book from './Book';
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: '',
+      searchResults: [],
+      shelf: 'none'
     };
+    this.handleSearch = this.handleSearch.bind(this);
+  };
+
+  // Create method to search for a book
+  handleSearch(event) {
+    // if query isn't blank, set it to state
+    if (event.target.value !== '') {
+      this.setState({query: event.target.value});
+      // execute search via API
+      BooksAPI.search(this.state.query).then(searchResults => {
+          this.setState({ searchResults })
+        })
+    } else {
+      //Art is a placeholder
+      this.setState({query: 'Art'})
+    }
   }
-
-  // Create method to search for a book, add it to a new array
-  // in the array, check if the book is already in the user's collection
-  // if it is, then dropdown needs to reflect the user's current shelf for the book
-  // if it isn't, then dropdown should equal None
-
 
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+          <Link className="close-search" to="/">
+            Close
+          </Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -34,14 +49,22 @@ class SearchBar extends React.Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              defaultValue={this.state.query}
-
+              onChange={this.handleSearch}
             />
 
           </div>
         </div>
+        {/* Display search results, use map */}
         <div className="search-books-results">
           <ol className="books-grid">
+            {this.state.searchResults.map(book => (
+              <Book
+                book={book}
+                key={book.id}
+                shelf={book.shelf}
+                moveBook={this.props.moveBook}
+              />
+            ))}
           </ol>
         </div>
       </div>

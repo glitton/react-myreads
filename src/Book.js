@@ -16,15 +16,25 @@ class Book extends React.Component {
     this.props.moveBook(this.props.book, event.target.value);
   }
 
+  // Method to handle when no imagelinks are available
+  bookImage(book) {
+    if (book.imageLinks.thumbnail && book.imageLinks) {
+      return `url(${book.imageLinks.thumbnail})`
+    } else {
+      return 'none';
+    }
+  }
+
   render() {
+    const book = this.props.book;
     return (
-          <li key={this.props.book.id}>
+          <li key={book.id}>
             <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`}}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `${this.bookImage(book)}`}}></div>
                 <div className="book-shelf-changer">
                   <select defaultValue=
-                    {this.props.book.shelf}
+                    {book.shelf}
                     onChange={this.handleChange}
                   >
                     <option value="none" disabled>Move to...</option>
@@ -35,8 +45,8 @@ class Book extends React.Component {
                   </select>
                 </div>
               </div>
-              <div className="book-title">{this.props.book.title}</div>
-              <div className="book-authors">{this.props.book.authors}</div>
+              <div className="book-title">{book.title}</div>
+              <div className="book-authors">{book.authors}</div>
             </div>
           </li>
     );

@@ -48,6 +48,8 @@ class BooksApp extends React.Component {
   };
 
   // Method to move book using its id, to another shelf
+  // Created with the help of Doug Brown
+  // https://udacity-react.slack.com/archives/C5T2LCD53/p1521259162000057?thread_ts=1521245382.000050&cid=C5T2LCD53
    moveBook = (chosenBook, newShelf) => {
      BooksAPI.update(chosenBook, newShelf).then(result => {
        this.setState(previousState => {
