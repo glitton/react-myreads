@@ -17,13 +17,13 @@ class Book extends React.Component {
   }
 
   // Method to handle when no imagelinks are available
-  // bookImage(book) {
-  //   if (book.imageLinks.thumbnail && book.imageLinks) {
-  //     return `url(${book.imageLinks.thumbnail})`
-  //   } else {
-  //     return 'none';
-  //   }
-  // }
+  bookImage(book) {
+    if (this.props.book.imageLinks && this.props.book.imageLinks.thumbnail) {
+      return `url(${this.props.book.imageLinks.thumbnail})`
+    } else {
+      return 'none';
+    }
+  }
 
   render() {
     const book = this.props.book;

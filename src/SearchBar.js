@@ -8,9 +8,8 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      query: "",
       searchResults: [],
-      shelf: 'none'
     };
     this.handleSearch = this.handleSearch.bind(this);
   };
@@ -18,15 +17,15 @@ class SearchBar extends React.Component {
   // Create method to search for a book
   handleSearch(event) {
     // if query isn't blank, set it to state
-    if (event.target.value !== '') {
+    if (event.target.value !== "") {
       this.setState({query: event.target.value});
       // execute search via API
       BooksAPI.search(this.state.query).then(searchResults => {
-          this.setState({ searchResults })
-        })
+          this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
+        });
     } else {
-      //Art is a placeholder
-      this.setState({query: 'Art'})
+
+      this.setState({query: []});
     }
   }
 
@@ -63,6 +62,7 @@ class SearchBar extends React.Component {
                 key={book.id}
                 shelf={book.shelf}
                 moveBook={this.props.moveBook}
+                books={this.props.books}
               />
             ))}
           </ol>
