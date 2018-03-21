@@ -66,18 +66,27 @@ class BooksApp extends React.Component {
    //   });
    // };
 
+   // moveBook = (chosenBook, newShelf) => {
+   //   BooksAPI.update(chosenBook, newShelf).then(result => {
+   //     this.setState((state) => {
+   //       //Remove chosen book from current state
+   //       books: this.state.books.filter((book) => book.id !== chosenBook.id)
+   //     });
+   //     //Assign newshelf to chosen book then add it back to create new state
+   //     chosenBook.shelf = newShelf
+   //     this.setState({books: this.state.books.concat([chosenBook])})
+   //   });
+   // }
+
    moveBook = (chosenBook, newShelf) => {
      BooksAPI.update(chosenBook, newShelf).then(result => {
-       this.setState((state) => {
-         //Remove chosen book from current state
-         books: this.state.books.filter((book) => book.id !== chosenBook.id)
-       });
-       //Assign newshelf to chosen book then add it back to create new state
        chosenBook.shelf = newShelf
-       this.setState({books: this.state.books.concat([chosenBook])})
+       const chosenBookToMove = this.state.books.filter((book) => book.id !== chosenBook.id);
+       console.log('array with chosen book' + chosenBookToMove);
+       this.setState({books: this.state.books.concat([ chosenBookToMove ])});
+
      });
    }
-
 
   render() {
     return (
