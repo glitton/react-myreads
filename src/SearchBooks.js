@@ -4,7 +4,7 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Book from './Book';
 
-class SearchBar extends React.Component {
+class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,22 +14,27 @@ class SearchBar extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   };
 
-  // Create method to search for a book
+  // Create method to search for a book and allow user to move it to their collection
   handleSearch(event) {
     // if query isn't blank, set it to state
     if (event.target.value !== "") {
       this.setState({query: event.target.value});
-      // execute search via API
-      BooksAPI.search(this.state.query).then(searchResults => {
+      // Then execute search via API
+      BooksAPI.search(event.target.value).then(searchResults => {
+          // check if books are already in the user's shelf
+          //and if it is, set it's shelf value to the same value as the main app
+          // otherwise,set shelf to 'none'
+          //TBD  
+          //takes into account errors in the search
           this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
         });
     } else {
-
       this.setState({query: []});
     }
   }
 
   render() {
+    console.log(this.state.searchResults)
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -72,4 +77,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default SearchBooks;
