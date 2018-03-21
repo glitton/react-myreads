@@ -68,15 +68,14 @@ class BooksApp extends React.Component {
 
    moveBook = (chosenBook, newShelf) => {
      BooksAPI.update(chosenBook, newShelf).then(result => {
-       // console.log(result); //object
-       // console.log('chose this book' + JSON.stringify(chosenBook)); //object
-       // console.log('new shelf' + newShelf); // string
-       chosenBook.shelf = newShelf;
-       console.log('this should have a new shelf' + JSON.stringify(chosenBook));
-       //Need to capture the book id of the result object and the chosenBook object
-       // want to use filter but need to transform result and chosenBook from objects to arrays
-       //Add this new book to setState via concat,
-     })
+       this.setState((state) => {
+         //Remove chosen book from current state
+         books: this.state.books.filter((book) => book.id !== chosenBook.id)
+       });
+       //Assign newshelf to chosen book then add it back to create new state
+       chosenBook.shelf = newShelf
+       this.setState({books: this.state.books.concat([chosenBook])})
+     });
    }
 
 
