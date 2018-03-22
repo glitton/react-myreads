@@ -33,7 +33,7 @@ class BooksApp extends React.Component {
             id: 3,
             name: 'read',
             shelfName: 'Read'
-          }
+          } //consider adding another object with name = 'none'
         ],
       };
 
@@ -66,27 +66,17 @@ class BooksApp extends React.Component {
    //   });
    // };
 
-   // moveBook = (chosenBook, newShelf) => {
-   //   BooksAPI.update(chosenBook, newShelf).then(result => {
-   //     this.setState((state) => {
-   //       //Remove chosen book from current state
-   //       books: this.state.books.filter((book) => book.id !== chosenBook.id)
-   //     });
-   //     //Assign newshelf to chosen book then add it back to create new state
-   //     chosenBook.shelf = newShelf
-   //     this.setState({books: this.state.books.concat([chosenBook])})
-   //   });
-   // }
+    moveBook = (chosenBook, newShelf) => {
+       BooksAPI.update(chosenBook, newShelf).then(result => {
+         chosenBook.shelf = newShelf
+         const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
 
-   moveBook = (chosenBook, newShelf) => {
-     BooksAPI.update(chosenBook, newShelf).then(result => {
-       chosenBook.shelf = newShelf
-       const chosenBookToMove = this.state.books.filter((book) => book.id !== chosenBook.id);
-       console.log('array with chosen book' + chosenBookToMove);
-       this.setState({books: this.state.books.concat([ chosenBookToMove ])});
+         this.setState((state) => ({
+           books: state.books.concat([oldBooksArray]) 
+         }))
 
-     });
-   }
+       });
+     }
 
   render() {
     return (

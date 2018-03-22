@@ -24,7 +24,7 @@ class SearchBooks extends React.Component {
           // check if books are already in the user's shelf
           //and if it is, set it's shelf value to the same value as the main app
           // otherwise,set shelf to 'none'
-          //TBD  
+          //TBD
           //takes into account errors in the search
           this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
         });
@@ -58,7 +58,6 @@ class SearchBooks extends React.Component {
 
           </div>
         </div>
-        {/* Display search results, use map */}
         <div className="search-books-results">
           <ol className="books-grid">
             {this.state.searchResults.map(book => (
