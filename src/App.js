@@ -47,36 +47,17 @@ class BooksApp extends React.Component {
     });
   };
 
-  // Method to move book using its id, to another shelf
-  // Created with the help of Doug Brown
-  // https://udacity-react.slack.com/archives/C5T2LCD53/p1521259162000057?thread_ts=1521245382.000050&cid=C5T2LCD53
-   // moveBook = (chosenBook, newShelf) => {
-   //   BooksAPI.update(chosenBook, newShelf).then(result => {
-   //     this.setState(previousState => {
-   //       const newState = previousState; //output is an array
-   //       // console.log('this is the new state' + JSON.stringify(newState));
-   //       // filter the newState array and get the id of the book to move
-   //       const chosenBookToMove = newState.books.filter(book => book.id === chosenBook.id);
-   //       // console.log('chosen book' + JSON.stringify(chosenBookToMove));
-   //       //grab the shelf property, this is the new shelf where the book will go
-   //       chosenBookToMove[0].shelf = newShelf;
-   //       console.log('chosen book with new shelf' + JSON.stringify(chosenBook));
-   //       return ({ books: newState.books })
-   //     });
-   //   });
-   // };
-
-    moveBook = (chosenBook, newShelf) => {
-       BooksAPI.update(chosenBook, newShelf).then(result => {
-         chosenBook.shelf = newShelf
-         const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
-
-         this.setState((state) => ({
-           books: state.books.concat([oldBooksArray]) 
-         }))
-
-       });
-     }
+  // Method to move books to other shelves
+  moveBook = (chosenBook, newShelf) => {
+     BooksAPI.update(chosenBook, newShelf).then(result => {
+       chosenBook.shelf = newShelf
+       const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
+       // set new state by adding the old array to the new array
+       this.setState((state) => ({
+         books: state.books.concat([oldBooksArray])
+       }));
+     });
+   }
 
   render() {
     return (
