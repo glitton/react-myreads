@@ -21,7 +21,18 @@ class SearchBooks extends React.Component {
       this.setState({query: event.target.value});
       // Then execute search via API
       BooksAPI.search(event.target.value).then(searchResults => {
-          // check if books are already in the user's shelf
+        // console.log('the search ' + JSON.stringify(searchResults)); //array of objects
+        const shelvedBooks = this.props.books;
+        const shelves = this.props.shelves;
+        // console.log('shelf status ' + JSON.stringify(shelves))//array of objects
+        // console.log('books on shelves ' + JSON.stringify(shelvedBooks));
+        //check if books are already in the user's shelf
+          //map over searchResults and check if book id is already in collection
+          // searchResults.map((searchResult) => {
+          //   if (searchResult.id === shelvedBooks.id) {
+          //     searchResult = shelvedBooks
+          //   }
+          // })
           //and if it is, set it's shelf value to the same value as the main app
           // otherwise,set shelf to 'none'
           //TBD
@@ -34,7 +45,7 @@ class SearchBooks extends React.Component {
   }
 
   render() {
-    console.log(this.state.searchResults)
+
     return (
       <div className="search-books">
         <div className="search-books-bar">

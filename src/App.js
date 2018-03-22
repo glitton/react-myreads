@@ -10,12 +10,6 @@ class BooksApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      /**
-       * TODO: Instead of using this state variable to keep track of which page
-       * we're on, use the URL in the browser's address bar. This will ensure that
-       * users can use the browser's back and forward buttons to navigate between
-       * pages, as well as provide a good URL they can bookmark and share.
-       */
         showSearchPage: false,
         books: [],
         shelves: [
@@ -50,6 +44,7 @@ class BooksApp extends React.Component {
   // Method to move books to other shelves
   moveBook = (chosenBook, newShelf) => {
      BooksAPI.update(chosenBook, newShelf).then(result => {
+       //Assign the chosen book's shelf to newShelf
        chosenBook.shelf = newShelf
        const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
        // set new state by adding the old array to the new array
