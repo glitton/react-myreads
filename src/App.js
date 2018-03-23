@@ -44,6 +44,7 @@ class BooksApp extends React.Component {
   // Method to move books to other shelves
   moveBook = (chosenBook, newShelf) => {
      BooksAPI.update(chosenBook, newShelf).then(result => {
+       //Assign the chosen book's shelf to newShelf
        chosenBook.shelf = newShelf
        const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
        // set new state by adding the old array to the new array

@@ -33,9 +33,8 @@ class Book extends React.Component {
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `${this.bookImage(book)}`}}></div>
                 <div className="book-shelf-changer">
-                  <select defaultValue=
-                    {book.shelf}
-                    onChange={this.handleChange}
+                  <select defaultValue={book.shelf}
+                          onChange={this.handleChange}
                   >
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>

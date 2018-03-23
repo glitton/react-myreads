@@ -15,26 +15,51 @@ class SearchBooks extends React.Component {
   };
 
   // Create method to search for a book and allow user to move it to their collection
-  handleSearch(event) {
-    // if query isn't blank, set it to state
-    if (event.target.value !== "") {
-      this.setState({query: event.target.value});
+  // handleSearch(event) {
+  //   // if query isn't blank, set it to state
+  //   if (event.target.value !== "") {
+  //     this.setState({query: event.target.value});
       // Then execute search via API
-      BooksAPI.search(event.target.value).then(searchResults => {
-          // check if books are already in the user's shelf
-          //and if it is, set it's shelf value to the same value as the main app
-          // otherwise,set shelf to 'none'
-          //TBD
-          //takes into account errors in the search
-          this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
-        });
+  //     BooksAPI.search(query, 20).then(searchResults => {
+  //       this.props.books.forEach((book) => {
+  //         //Find if the book already on shelves is in the searchResults
+  //         let shelvedBooks = searchResults.find((result) =>
+  //           result.id === book.id);
+  //           // if book with the same id exists then set it to have the same shelf property
+  //           if (shelvedBooks) {
+  //             shelvedBooks.shelf = book.shelf
+  //           }
+  //         })
+  //       })
+  //         this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
+  //       });
+  //   } else {
+  //     this.setState({query: []});
+  //   }
+  // }
+
+  handleSearch(event) {
+    if (event.target.value !== "") {
+      this.setState({ query: event.target.value });
+
+      BooksAPI.search(this.state.query,20).then(searchResults => {
+        this.props.books.forEach((book) => {
+          let shelvedBooks = searchResults.find((result) => {
+            result.id === book.id
+          });
+          if (shelvedBooks) {
+            shelvedBooks.shelf = book.shelf
+          }
+        })
+        this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
+      });
     } else {
-      this.setState({query: []});
+      this.setState({ query: ""})
     }
   }
 
   render() {
-    console.log(this.state.searchResults)
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
