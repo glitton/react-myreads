@@ -14,6 +14,7 @@ class SearchBooks extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   };
 
+
   // Create method to search for a book and allow user to move it to their collection
   // handleSearch(event) {
   //   // if query isn't blank, set it to state
@@ -37,29 +38,33 @@ class SearchBooks extends React.Component {
   //     this.setState({query: []});
   //   }
   // }
-
+  // Create method to search for a book and allow user to move it to their collection
   handleSearch(event) {
-    if (event.target.value !== "") {
+    if (this.state.query !== "") {
       this.setState({ query: event.target.value });
 
-      BooksAPI.search(this.state.query,20).then(searchResults => {
-        this.props.books.forEach((book) => {
-          let shelvedBooks = searchResults.find((result) => {
-            result.id === book.id
-          });
+      BooksAPI.search(event.target.value).then(searchResults => {
+        if (searchResults.error) {
+          alert ('Your search contained an error, try again');
+          this.setState({ searchResults: []})
+        } else {
+          this.props.books.forEach((book) => {
+            let shelvedBooks = searchResults.find((result) => {
+              return result.id === book.id
+              }
+            })
+          })// end of else
           if (shelvedBooks) {
             shelvedBooks.shelf = book.shelf
-          }
-        })
-        this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults });
-      });
+          this.setState({ searchResults })
+        }
+      }) // end of API search
     } else {
-      this.setState({ query: ""})
+      this.setState({ searchResults: []});
     }
-  }
+  } //end of handleSearch
 
   render() {
-
     return (
       <div className="search-books">
         <div className="search-books-bar">
