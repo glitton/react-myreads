@@ -16,37 +16,27 @@ class SearchBooks extends React.Component {
 
   // Create method to search for a book and allow user to move it to their collection
   handleSearch(event) {
-    // if query isn't blank, set it to state
-    if (this.state.query !== "") {
-      this.setState({ query: event.target.value });
-      //execute search via the API
-      BooksAPI.search(event.target.value).then((searchResults) => {
-        if (searchResults.error) {
-          alert("There was an error in your search, try again");
-          this.setState(searchResults: [])
-        } else {
-          // loop through current books on shelf
-          this.props.books.forEach((book) => {
-            // when there is a match, store it in shelvedBooks
-            let shelvedBooks = searchResults.find((result) => {
-              result.id === book.id
-            });
-            if (shelvedBooks) {
-              shelvedBooks.shelf = book.shelf
-            } else {
-              shelvedBooks.shelf = "None"
-            }
-          })
-        }
+    if (this.state.query !== " ") {
+      this.setState({ query:event.target.value })
+      BooksAPI.search(event.target.value).then(searchResults => {
+        this.props.books.forEach(book => {
+          //see if book matches with a book in searchResults
+          let shelvedBook = searchResults.find(result => result.id === book.id);
+          if (shelvedBook) {
+            shelvedBook.shelf = book.shelf
+          } else {
+            //TBD, need to figure out how to set shelf to none
+            searchResults.shelf = 'none'
+          }
+          this.setState({ searchResults })
+        })
       })
-      return this.setState({ searchResults })
-    } else {
-      return this.setState({ searchResults: []});
+
     }
+
   }
 
   render() {
-
     return (
       <div className="search-books">
         <div className="search-books-bar">

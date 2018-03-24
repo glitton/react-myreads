@@ -27,7 +27,12 @@ class BooksApp extends React.Component {
             id: 3,
             name: 'read',
             shelfName: 'Read'
-          } //consider adding another object with name = 'none'
+          },
+          {
+            id: 4,
+            name: 'none',
+            shelfName: 'None'
+          }
         ],
       };
 
