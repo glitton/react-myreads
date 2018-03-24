@@ -28,11 +28,6 @@ class BooksApp extends React.Component {
             name: 'read',
             shelfName: 'Read'
           },
-          {
-            id: 4,
-            name: 'none',
-            shelfName: 'None'
-          }
         ],
       };
 

@@ -18,11 +18,14 @@ class SearchBooks extends React.Component {
   handleSearch(event) {
     if (this.state.query !== " ") {
       this.setState({ query:event.target.value })
+      //search for new books via the API
       BooksAPI.search(event.target.value).then(searchResults => {
+        //loop through current collection
         this.props.books.forEach(book => {
-          //see if book matches with a book in searchResults
+          //see if any book in the collection matches with a book in searchResults
           let shelvedBook = searchResults.find(result => result.id === book.id);
           if (shelvedBook) {
+            //if there is a match, assign the collection's shelf to searchResults shelf
             shelvedBook.shelf = book.shelf
           } else {
             //TBD, need to figure out how to set shelf to none
@@ -31,9 +34,7 @@ class SearchBooks extends React.Component {
           this.setState({ searchResults })
         })
       })
-
     }
-
   }
 
   render() {
