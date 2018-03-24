@@ -42,29 +42,25 @@ class BooksApp extends React.Component {
   };
 
   // Method to move books to other shelves
-  // moveBook = (chosenBook, newShelf) => {
-   //   BooksAPI.update(chosenBook, newShelf).then(result => {
-   //     chosenBook.shelf = newShelf
-   //     const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
-   //     this.setState((state) => ({
-   //       books: state.books.concat([oldBooksArray])
-   //     }));
-   //   });
-   // }
-
- moveBook = (chosenBook, newShelf) => {
-   if (this.state.books.includes(chosenBook)) {
-     let currentBooks = this.state.books;
-     currentBooks[currentBooks.indexOf(chosenBook)].shelf = newShelf
-     BooksAPI.update(chosenBook, newShelf).then(response => {})
-     this.setState({books: currentBooks})
-   } else {
-     BooksAPI.update(chosenBook, newShelf).then(response => {
-       BooksAPI.getAll().then(books => {
-         this.setState({ books })
-       })
-     })
-   }
+  moveBook = (chosenBook, newShelf) => {
+    if (this.state.books.includes(chosenBook)) {
+      let currentBooks = this.state.books;
+      currentBooks[currentBooks.indexOf(chosenBook)].shelf = newShelf
+      BooksAPI.update(chosenBook, newShelf).then(result => {
+        this.setState({ books: currentBooks })
+      });
+    } else {
+      BooksAPI.update(chosenBook, newShelf).then(result => {
+        BooksAPI.getAll().then(books => {
+          chosenBook.shelf = newShelf
+          //remove book that was chosen add it to state later
+          const oldBooksArray = this.state.books.filter((book) => book.id !== chosenBook.id);
+          this.setState((state) => ({
+            books: state.books.concat([oldBooksArray])
+          }));
+        })
+      });
+    }
   }
 
   render() {
@@ -74,7 +70,6 @@ class BooksApp extends React.Component {
           <SearchBooks
             books={this.state.books}
             moveBook={this.moveBook}
-            shelves={this.state.shelves}
           />
         )}/>
 
