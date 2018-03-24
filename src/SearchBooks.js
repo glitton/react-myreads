@@ -29,8 +29,8 @@ class SearchBooks extends React.Component {
           this.props.books.forEach((book) => {
             // when there is a match, store it in shelvedBooks
             let shelvedBooks = searchResults.find((result) => {
-              return result.id === book.id
-            })
+              result.id === book.id
+            });
             if (shelvedBooks) {
               shelvedBooks.shelf = book.shelf
             } else {
