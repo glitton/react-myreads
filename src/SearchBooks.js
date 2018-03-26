@@ -15,24 +15,6 @@ class SearchBooks extends React.Component {
   }
 
   // Create method to search for a book and allow user to move it to their collection
-  // handleSearch(event) {
-  //   if (this.state.query !== " ") {
-  //     this.setState({ query:event.target.value })
-  //     BooksAPI.search(event.target.value).then(searchResults => {
-  //       this.props.books.forEach(book => {
-  //         let shelvedBook = searchResults.find(result => result.id === book.id);
-  //         if (shelvedBook) {
-  //           shelvedBook.shelf = book.shelf
-  //         }
-  //         this.setState({ searchResults: !searchResults || searchResults.error ? [] : searchResults })
-  //       })
-  //     })
-  //   } else {
-  //     this.setState({ searchResults: []})
-  //   }
-  // }
-
-  // Create method to search for a book and allow user to move it to their collection
   handleSearch(event) {
     if (this.state.query !== " ") {
       this.setState({ query: event.target.value });
