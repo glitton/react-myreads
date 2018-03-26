@@ -12,23 +12,6 @@ class BooksApp extends React.Component {
     this.state = {
         showSearchPage: false,
         books: [],
-        shelves: [
-          {
-            id: 1,
-            name: 'currentlyReading',
-            shelfName: 'Currently Reading'
-          },
-          {
-            id: 2,
-            name: 'wantToRead',
-            shelfName: 'Want To Read'
-          },
-          {
-            id: 3,
-            name: 'read',
-            shelfName: 'Read'
-          } //consider adding another object with name = 'none'
-        ],
       };
 
       this.moveBook = this.moveBook.bind(this);
@@ -55,6 +38,24 @@ class BooksApp extends React.Component {
    }
 
   render() {
+    const shelves = [
+      {
+        id: 1,
+        name: 'currentlyReading',
+        shelfName: 'Currently Reading'
+      },
+      {
+        id: 2,
+        name: 'wantToRead',
+        shelfName: 'Want To Read'
+      },
+      {
+        id: 3,
+        name: 'read',
+        shelfName: 'Read'
+      }
+    ]
+
     return (
       <div className="app">
         <Route path="/search" render={() => (
@@ -73,7 +74,7 @@ class BooksApp extends React.Component {
               <div className="list-books-content">
                 <div>
                   {
-                    this.state.shelves.map(shelf => {
+                    shelves.map(shelf => {
                       return (
                         <BookShelf
                           key={shelf.id}
