@@ -31,7 +31,7 @@ class SearchBooks extends React.Component {
                 }
               }
             }
-            this.setState({ searchResults: searchResults });
+            this.setState({ searchResults });
           }
         })
         .catch(e => {
