@@ -9,6 +9,7 @@ class BooksApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       showSearchPage: false,
       books: [],
       shelves: [
@@ -28,6 +29,13 @@ class BooksApp extends React.Component {
           shelfName: "Read"
         }
       ]
+=======
+        showSearchPage: false,
+        books: [],
+      };
+
+      this.moveBook = this.moveBook.bind(this);
+>>>>>>> 1602ad97d7b73f8086eb6d28d0dbb79c1054b4f8
     };
 
     this.moveBook = this.moveBook.bind(this);
@@ -65,6 +73,24 @@ class BooksApp extends React.Component {
   };
 
   render() {
+    const shelves = [
+      {
+        id: 1,
+        name: 'currentlyReading',
+        shelfName: 'Currently Reading'
+      },
+      {
+        id: 2,
+        name: 'wantToRead',
+        shelfName: 'Want To Read'
+      },
+      {
+        id: 3,
+        name: 'read',
+        shelfName: 'Read'
+      }
+    ]
+
     return (
       <div className="app">
         <Route
@@ -84,6 +110,7 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
+<<<<<<< HEAD
                   {this.state.shelves.map(shelf => {
                     return (
                       <BookShelf
@@ -96,6 +123,20 @@ class BooksApp extends React.Component {
                       />
                     );
                   })}
+=======
+                  {
+                    shelves.map(shelf => {
+                      return (
+                        <BookShelf
+                          key={shelf.id}
+                          shelf={shelf}
+                          books={this.state.books.filter(book => book.shelf === shelf.name)}
+                          moveBook={this.moveBook}
+                        />
+                      )
+                    })
+                  }
+>>>>>>> 1602ad97d7b73f8086eb6d28d0dbb79c1054b4f8
                 </div>
               </div>
               <div className="open-search">
