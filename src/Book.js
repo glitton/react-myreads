@@ -1,29 +1,25 @@
 import React from "react";
 import "./App.css";
 
-class Book extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-  }
+function Book(props) {
 
   // Method that takes user's input via the dropdown
-  handleChange(event) {
-    this.props.moveBook(this.props.book, event.target.value);
+  function handleChange (event) {
+    event.preventDefault();
+    props.moveBook(props.book, event.target.value);
   }
 
   // Method to handle when no imagelinks are available
-  bookImage(book) {
-    if (this.props.book.imageLinks && this.props.book.imageLinks.thumbnail) {
-      return `url(${this.props.book.imageLinks.thumbnail})`;
+  function bookImage(book) {
+    if (props.book.imageLinks && props.book.imageLinks.thumbnail) {
+      return `url(${props.book.imageLinks.thumbnail})`;
     } else {
       return "none";
     }
   }
 
-  render() {
-    const book = this.props.book;
+  const book = props.book;
+
     return (
       <li key={book.id}>
         <div className="book">
@@ -33,11 +29,11 @@ class Book extends React.Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `${this.bookImage(book)}`
+                backgroundImage: `${bookImage(book)}`
               }}
             />
             <div className="book-shelf-changer">
-              <select defaultValue={book.shelf} onChange={this.handleChange}>
+              <select defaultValue={book.shelf} onChange={handleChange}>
                 <option value="none" disabled>
                   Move to...
                 </option>
@@ -54,6 +50,5 @@ class Book extends React.Component {
       </li>
     );
   }
-}
 
 export default Book;
