@@ -35,14 +35,12 @@ class SearchBooks extends React.Component {
           }
         })
         .catch(e => {
-          console.log("error" + e);
           this.setState({ searchResults: [] });
         });
     }
   }
 
   render() {
-    console.log(this.state.searchResults);
     return (
       <div className="search-books">
         <div className="search-books-bar">

@@ -35,11 +35,12 @@ class BooksApp extends React.Component {
       this.setState(state => ({
         books: state.books.concat([oldBooksArray])
       }));
-    }).then(book => {
+    }).then(() => {
+      //Get all from the backend
       BooksAPI.getAll().then(books => {
         this.setState({ books });
       });
-    })
+    });
   };
 
   render() {
